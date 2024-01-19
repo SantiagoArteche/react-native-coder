@@ -1,10 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.textStyles}>Hola Coder!</Text>
+      <Text style={styles.welcomeCoder}>Hola, Coder!</Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -17,12 +17,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  textStyles: {
+  welcomeCoder: {
     backgroundColor: "red",
     borderRadius: 3,
     padding: 10,
     marginBottom: 2,
-    color: "white",
+    color: "black",
     fontWeight: "bold",
     fontSize: 50,
   },
