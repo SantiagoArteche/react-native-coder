@@ -1,8 +1,6 @@
 import { StatusBar } from "expo-status-bar";
-
 import { StyleSheet, View } from "react-native";
 import Constants from "expo-constants";
-
 import { Categories } from "../../components/Categories/Categories";
 
 export const Home = ({ selectCategory }) => {
@@ -16,9 +14,10 @@ export const Home = ({ selectCategory }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    display: "flex",
     backgroundColor: "#fff",
     alignItems: "center",
-    paddingTop: Constants.statusBarHeight,
+    padding: Constants.statusBarHeight,
+    cursor: "pointer",
   },
 });

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 import allProducts from "../../data/products.json";
 import Constants from "expo-constants";
 import { ProductItem } from "../../components/ProductItem/ProductItem";
@@ -42,6 +42,6 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     width: "100%",
-    padding: Constants.statusBarHeight,
+    paddingTop: Constants.statusBarHeight,
   },
 });
