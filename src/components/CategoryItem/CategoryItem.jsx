@@ -2,6 +2,7 @@ import { Text, StyleSheet, View, Pressable } from "react-native";
 import Card from "../Card/Card";
 
 export const CategoryItem = ({ selectCategory, category }) => {
+  console.log(category);
   return (
     <Card>
       <View style={styles.container}>
