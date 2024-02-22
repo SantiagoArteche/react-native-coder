@@ -8,7 +8,7 @@ import {
 import Card from "../Card/Card";
 import { useEffect, useState } from "react";
 
-export const ProductItem = ({ product, setProductDetailId }) => {
+export const ProductItem = ({ product, navigation }) => {
   const [isPortrait, setIsPortrait] = useState(true);
   const [isLandscape, setIsLandscape] = useState(false);
   const { width, height } = useWindowDimensions();
@@ -25,7 +25,11 @@ export const ProductItem = ({ product, setProductDetailId }) => {
 
   return (
     <Card style={styles.products}>
-      <Pressable onPress={() => setProductDetailId(product.id)}>
+      <Pressable
+        onPress={() =>
+          navigation.navigate("ItemListDetail", { id: product.id })
+        }
+      >
         <Text style={styles.textProduct}>{product.title}</Text>
       </Pressable>
 

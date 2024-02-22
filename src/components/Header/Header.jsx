@@ -1,7 +1,13 @@
 import { Text, StyleSheet } from "react-native";
 
-export const Header = () => {
-  return <Text style={styles.header}>Off Store</Text>;
+import { StatusBar } from "expo-status-bar";
+export const Header = ({ title }) => {
+  return (
+    <>
+      <Text style={styles.header}>{title}</Text>
+      <StatusBar style="light" />
+    </>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -9,8 +15,9 @@ const styles = StyleSheet.create({
     backgroundColor: "purple",
     width: "100%",
     textAlign: "center",
-    padding: 3,
-    fontSize: 45,
+    fontSize: 33,
     fontWeight: "bold",
+    padding: 18,
+    textTransform: "capitalize",
   },
 });
