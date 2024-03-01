@@ -1,23 +1,17 @@
-import { StyleSheet, Platform } from "react-native";
-import Constants from "expo-constants";
-
 import { useFonts } from "expo-font";
 import { fonts } from "./src/global/fonts.js";
-
-import { Navigator } from "./src/navigation/Navigator.jsx";
+import TabNavigator from "./src/navigation/TabNavigator.jsx";
+import { Provider } from "react-redux";
+import { store } from "./src/store/store.js";
 
 export default function App() {
   const [fontsLoaded] = useFonts(fonts);
 
   if (!fontsLoaded) return null;
 
-  return <Navigator />;
+  return (
+    <Provider store={store}>
+      <TabNavigator />
+    </Provider>
+  );
 }
-const styles = StyleSheet.create({
-  container: {
-    display: "flex",
-    backgroundColor: "#fff",
-
-    padding: Platform.OS === "android" ? Constants.statusBarHeight : 0,
-  },
-});

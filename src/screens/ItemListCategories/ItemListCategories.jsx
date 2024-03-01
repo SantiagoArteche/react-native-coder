@@ -1,22 +1,25 @@
 import { StyleSheet, View, FlatList, Text, Pressable } from "react-native";
 import allProducts from "../../data/products.json";
-import Constants from "expo-constants";
 import { ProductItem } from "../../components/ProductItem/ProductItem";
 import { useState, useEffect } from "react";
 import { Search } from "../../components/Search/Search";
-import { StatusBar } from "expo-status-bar";
+import { useSelector } from "react-redux";
 
-export const ItemListCategories = ({ navigation, route }) => {
+export const ItemListCategories = ({ navigation }) => {
   const [products, setProducts] = useState([]);
   const [prodSearch, setProdSearch] = useState("");
-  const { category } = route.params;
-  useEffect(() => {
-    const filterProducts = allProducts.filter(
-      (prod) => prod.category === category
-    );
-    category ? setProducts(filterProducts) : setProducts(allProducts);
+  const {
+    categorySelected: category,
+    productsFilteredByCategory,
+    allProducts,
+  } = useSelector((state) => state.shop);
 
-    const searchProduct = filterProducts.filter((prod) =>
+  useEffect(() => {
+    category
+      ? setProducts(productsFilteredByCategory)
+      : setProducts(allProducts);
+
+    const searchProduct = productsFilteredByCategory.filter((prod) =>
       prod.title.toUpperCase().includes(prodSearch.toUpperCase())
     );
 

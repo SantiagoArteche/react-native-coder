@@ -11,6 +11,7 @@ export const Header = ({ title }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {},
   header: {
     backgroundColor: "purple",
     width: "100%",

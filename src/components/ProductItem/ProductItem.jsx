@@ -7,11 +7,15 @@ import {
 } from "react-native";
 import Card from "../Card/Card";
 import { useEffect, useState } from "react";
+import { setProductId } from "../../store/slices/shop/shopSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export const ProductItem = ({ product, navigation }) => {
   const [isPortrait, setIsPortrait] = useState(true);
   const [isLandscape, setIsLandscape] = useState(false);
   const { width, height } = useWindowDimensions();
+  const { productIdSelected } = useSelector((state) => state.shop);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (height > width) {
@@ -26,9 +30,10 @@ export const ProductItem = ({ product, navigation }) => {
   return (
     <Card style={styles.products}>
       <Pressable
-        onPress={() =>
-          navigation.navigate("ItemListDetail", { id: product.id })
-        }
+        onPress={() => {
+          dispatch(setProductId({ id: product.id }));
+          navigation.navigate("ItemListDetail", { id: productIdSelected.id });
+        }}
       >
         <Text style={styles.textProduct}>{product.title}</Text>
       </Pressable>
@@ -47,6 +52,7 @@ const styles = StyleSheet.create({
     fontFamily: "KanitItalyBold",
     fontSize: 20,
     width: "70%",
+    color: "white",
   },
   image: {
     minHeight: 90,

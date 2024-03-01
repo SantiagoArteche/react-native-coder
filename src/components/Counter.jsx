@@ -1,34 +1,67 @@
-// import { useState } from "react";
-// import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, StyleSheet } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  increment,
+  decrement,
+  reset,
+  incrementByAmount,
+} from "../store/slices/counter/counterSlice";
 
-// export const Counter = () => {
-//   const [count, setCount] = useState(0);
+export const Counter = () => {
+  const { value } = useSelector((state) => state.counter);
+  const dispatch = useDispatch();
 
-//   const plus = () => {
-//     if (count < 22) setCount(count + 1);
-//   };
-//   const minus = () => {
-//     if (count > 0) setCount(count - 1);
-//   };
-//   const reset = () => {
-//     if (count !== 0) setCount(0);
-//   };
-//   return (
-//     <View>
-//       <Pressable>
-//         {" "}
-//         <Text onPress={plus}>+</Text>
-//       </Pressable>
-//       <Pressable>
-//         {" "}
-//         <Text onPress={minus}>-</Text>
-//       </Pressable>
-//       <Pressable>
-//         {" "}
-//         <Text onPress={reset}>Reset</Text>
-//       </Pressable>
+  const plus = () => {
+    if (value < 22) dispatch(increment());
+  };
 
-//       <Text>{count}</Text>
-//     </View>
-//   );
-// };
+  const minus = () => {
+    if (value > 0) dispatch(decrement());
+  };
+
+  const resetValue = () => {
+    if (value !== 0) dispatch(reset());
+  };
+  const incrementByAmo = (amount) => {
+    dispatch(incrementByAmount(3));
+  };
+  return (
+    <View style={styles.container}>
+      <Pressable>
+        <Text style={styles.buttons} onPress={minus}>
+          -
+        </Text>
+      </Pressable>
+      <Text style={{ fontSize: 33 }}>{value}</Text>
+      <Pressable>
+        <Text style={styles.buttons} onPress={plus}>
+          +
+        </Text>
+      </Pressable>
+      <Pressable>
+        <Text style={styles.buttons} onPress={resetValue}>
+          Reset
+        </Text>
+      </Pressable>
+      <Pressable>
+        <Text style={styles.buttons} onPress={incrementByAmo}>
+          Increment by amount
+        </Text>
+      </Pressable>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    gap: 5,
+  },
+  buttons: {
+    backgroundColor: "blue",
+    padding: 5,
+    color: "white",
+    borderRadius: 3,
+    fontSize: 22,
+  },
+});

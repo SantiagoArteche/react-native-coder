@@ -1,12 +1,17 @@
 import { Text, View, Image, Pressable } from "react-native";
-import products from "../../data/products.json";
-import { useEffect, useState } from "react";
 
-export const ItemListDetail = ({ navigation, route }) => {
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
+export const ItemListDetail = () => {
   const [product, setProduct] = useState(null);
-  const { id } = route.params;
+  const { productIdSelected, allProducts } = useSelector((state) => state.shop);
+
   useEffect(() => {
-    const productFinded = products.find((prod) => prod.id === id);
+    const productFinded = allProducts.find(
+      (prod) => prod.id == productIdSelected.id
+    );
+    console.log(productFinded);
     setProduct(productFinded);
   }, []);
   return (
