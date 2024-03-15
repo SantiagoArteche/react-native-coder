@@ -1,30 +1,34 @@
-import { StyleSheet, View, FlatList, Text, Pressable } from "react-native";
-import allProducts from "../../data/products.json";
+import { StyleSheet, View, FlatList, Text } from "react-native";
 import { ProductItem } from "../../components/ProductItem/ProductItem";
 import { useState, useEffect } from "react";
 import { Search } from "../../components/Search/Search";
 import { useSelector } from "react-redux";
+import {
+  useGetProductsByCategoryQuery,
+  useGetProductsQuery,
+} from "../../services/shop-service";
 
 export const ItemListCategories = ({ navigation }) => {
   const [products, setProducts] = useState([]);
   const [prodSearch, setProdSearch] = useState("");
+
+  const { categorySelected: category } = useSelector((state) => state.shop);
+
   const {
-    categorySelected: category,
-    productsFilteredByCategory,
-    allProducts,
-  } = useSelector((state) => state.shop);
+    data: productsFilteredByCategory,
+    isLoading,
+    error,
+  } = useGetProductsByCategoryQuery(category);
 
   useEffect(() => {
-    category
-      ? setProducts(productsFilteredByCategory)
-      : setProducts(allProducts);
+    if (productsFilteredByCategory) {
+      const filterProds = Object.values(productsFilteredByCategory).filter(
+        (prod) => prod.title.toUpperCase().includes(prodSearch.toUpperCase())
+      );
 
-    const searchProduct = productsFilteredByCategory.filter((prod) =>
-      prod.title.toUpperCase().includes(prodSearch.toUpperCase())
-    );
-
-    prodSearch != "" && setProducts(searchProduct);
-  }, [prodSearch]);
+      setProducts(filterProds);
+    }
+  }, [prodSearch, productsFilteredByCategory]);
 
   return (
     <View style={styles.container}>

@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Order } from "../screens/Order/Order";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Header } from "../components/Header/Header";
+
 
 const OrderStack = () => {
   const Stack = createNativeStackNavigator();
@@ -17,5 +17,3 @@ const OrderStack = () => {
 };
 
 export default OrderStack;
-
-const styles = StyleSheet.create({});

@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
 const CartItem = ({ item }) => {
+  
   return (
     <View key={item.id} style={styles.container}>
       <Text>{item.title}</Text>

@@ -1,13 +1,23 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
-
+import { useEffect } from "react";
+import { setAllProducts } from "../../store/slices/shop/shopSlice";
 import { Categories } from "../../components/Categories/Categories";
-import { Counter } from "../../components/Counter";
+
+import { useGetProductsQuery } from "../../services/shop-service";
+import { useDispatch } from "react-redux";
 
 export const Home = ({ navigation }) => {
+  const { data } = useGetProductsQuery();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setAllProducts(data));
+  }, [data]);
+
   return (
     <View style={styles.container}>
-      <Counter />
       <Categories navigation={navigation} />
       <StatusBar style="auto" />
     </View>

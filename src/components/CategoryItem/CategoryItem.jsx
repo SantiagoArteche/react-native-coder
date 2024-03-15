@@ -1,13 +1,12 @@
 import { Text, StyleSheet, View, Pressable } from "react-native";
 import Card from "../Card/Card";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setCategorySelected,
-  setProductId,
-} from "../../store/slices/shop/shopSlice";
+
+import { setCategorySelected } from "../../store/slices/shop/shopSlice";
+import { useDispatch } from "react-redux";
 
 export const CategoryItem = ({ category, navigation }) => {
   const dispatch = useDispatch();
+
   return (
     <Card>
       <View style={styles.container}>

@@ -14,7 +14,7 @@ export const ProductItem = ({ product, navigation }) => {
   const [isPortrait, setIsPortrait] = useState(true);
   const [isLandscape, setIsLandscape] = useState(false);
   const { width, height } = useWindowDimensions();
-  const { productIdSelected } = useSelector((state) => state.shop);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,14 +27,14 @@ export const ProductItem = ({ product, navigation }) => {
     }
   }, [width, height]);
 
+  const onProductIdSelected = () => {
+    dispatch(setProductId({ id: product?.id }));
+
+    navigation.navigate("ItemListDetail", { id: product?.id });
+  };
   return (
     <Card style={styles.products}>
-      <Pressable
-        onPress={() => {
-          dispatch(setProductId({ id: product.id }));
-          navigation.navigate("ItemListDetail", { id: productIdSelected.id });
-        }}
-      >
+      <Pressable onPress={onProductIdSelected}>
         <Text style={styles.textProduct}>{product.title}</Text>
       </Pressable>
 
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     fontFamily: "KanitItalyBold",
     fontSize: 20,
     width: "70%",
-    color: "white",
+    color: "black",
   },
   image: {
     minHeight: 90,
