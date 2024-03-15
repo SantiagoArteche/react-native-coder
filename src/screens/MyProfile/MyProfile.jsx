@@ -6,8 +6,7 @@ const MyProfile = ({ navigation }) => {
   const { imageCamera, user, profileImage } = useSelector(
     (state) => state.auth
   );
-  console.log(profileImage);
-  console.log(imageCamera);
+
   return (
     <View style={styles.container}>
       {imageCamera ? (
@@ -31,6 +30,12 @@ const MyProfile = ({ navigation }) => {
           </Pressable>
         </>
       )}
+      <Pressable
+        style={styles.button}
+        onPress={() => navigation.navigate("Addresses")}
+      >
+        <Text style={styles.text}>My Adresses</Text>
+      </Pressable>
     </View>
   );
 };
