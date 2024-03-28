@@ -23,7 +23,7 @@
 # Iniciar Proyecto De Manera Local
 
 ```
-git clone https://github.com/SantiagoArteche/ecommerceReactJs.git
+git clone https://github.com/SantiagoArteche/react-native-coder.git
 ```
 
 ```
