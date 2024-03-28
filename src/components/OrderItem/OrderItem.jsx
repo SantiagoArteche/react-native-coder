@@ -1,13 +1,12 @@
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
 const OrderItem = ({ item }) => {
-  console.log(item);
   const total = item.cartItems.reduce(
     (acum, el) => (acum += el.price * el.quantity),
     0
   );
-  console.log("asd");
+
   const discount = item.cartItems.reduce(
     (acum, el) => (acum += 100 - el.discountPercentage) / 100,
     0
@@ -17,20 +16,31 @@ const OrderItem = ({ item }) => {
     <View style={{ marginBottom: 30 }}>
       {item.cartItems.map((order) => {
         return (
-          <>
-            <Text>Name: {order.title}</Text>
-            <Text>Brand: {order.brand}</Text>
-            <Text>Description: {order.description}</Text>
-            <Text>Price: ${order.price}</Text>
-            <Text>Quantity: {order.quantity}</Text>
-            <Text>Discount: {order.discountPercentage}%</Text>
-          </>
+          <View key={`${order.id}-${Date.now()}`}>
+            <Text style={styles.text}>Name: {order.title}</Text>
+            <Text style={styles.text}>Brand: {order.brand}</Text>
+            <Text style={styles.text}>Description: {order.description}</Text>
+            <Text style={styles.text}>Price: ${order.price}</Text>
+            <Text style={styles.text}>Quantity: {order.quantity}</Text>
+            <Text style={styles.text}>
+              Discount: {order.discountPercentage}%
+            </Text>
+          </View>
         );
       })}
-      <Text>Total without discount: $ {total}</Text>
-      <Text>Final Price: $ {(total * discount).toFixed(2)}</Text>
+      <Text style={styles.text}>Total without discount: $ {total}</Text>
+      <Text style={{ fontSize: 33, fontWeight: "bold" }}>
+        Final Price: $ {(total * discount).toFixed(2)}
+      </Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+});
 
 export default OrderItem;

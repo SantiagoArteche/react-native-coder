@@ -2,11 +2,9 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import { CategoryItem } from "../CategoryItem/CategoryItem";
 import { useGetCategoriesQuery } from "../../services/shop-service";
 
-
-
 export const Categories = ({ navigation }) => {
-  const { data: categories, isLoading, error } = useGetCategoriesQuery();
- 
+  const { data: categories, isLoading } = useGetCategoriesQuery();
+
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -14,9 +12,6 @@ export const Categories = ({ navigation }) => {
       </View>
     );
   }
-
-  if (error) console.log(error);
-
 
   return (
     <>

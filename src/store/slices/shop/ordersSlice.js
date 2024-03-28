@@ -7,10 +7,12 @@ export const ordersSlice = createSlice({
   },
   reducers: {
     getOrders: (state, action) => {
-      console.log(action);
       state.orders = action.payload;
+    },
+    setOrders: (state, action) => {
+      state.orders = [...state.orders, action.payload];
     },
   },
 });
 
-export const { getOrders } = ordersSlice.actions;
+export const { getOrders, setOrders } = ordersSlice.actions;

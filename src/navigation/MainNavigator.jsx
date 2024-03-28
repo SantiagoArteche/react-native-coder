@@ -7,18 +7,35 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   useGetProfileImageQuery,
   useGetUserLocationQuery,
+  useGetOrdersQuery,
 } from "../services/shop-service";
+
 import {
   setImageCamera,
   setProfileImage,
   setUserLocation,
 } from "../store/slices/auth/authSlice";
+import { getOrders } from "../store/slices/shop/ordersSlice";
+import { fetchSession } from "../db";
+
 const MainNavigator = () => {
   const { user, localId } = useSelector((state) => state.auth);
-  const { data, error, isLoading } = useGetProfileImageQuery(localId);
+  const { data } = useGetProfileImageQuery(localId);
   const { data: location } = useGetUserLocationQuery(localId);
-  console.log(location);
+
   const dispatch = useDispatch();
+
+  const { data: orders } = useGetOrdersQuery();
+  const ordersObj = orders || {};
+  const ordersArray = Object.keys(ordersObj).map((key) => ({
+    id: key,
+    ...ordersObj[key],
+  }));
+
+  useEffect(() => {
+    dispatch(getOrders(ordersArray));
+  }, [orders]);
+
   useEffect(() => {
     if (data) {
       dispatch(setProfileImage(data.image));
@@ -29,6 +46,17 @@ const MainNavigator = () => {
       dispatch(setUserLocation(location));
     }
   }, [data, location]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        await fetchSession({ localId });
+      } catch (error) {
+        console.log(error.message);
+      }
+    })();
+  }, [localId]);
+
   return (
     <NavigationContainer>
       {user ? <TabNavigator /> : <AuthStack />}

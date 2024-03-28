@@ -3,7 +3,6 @@ import { Order } from "../screens/Order/Order";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Header } from "../components/Header/Header";
 
-
 const OrderStack = () => {
   const Stack = createNativeStackNavigator();
   return (

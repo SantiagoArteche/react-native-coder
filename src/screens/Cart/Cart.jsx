@@ -1,13 +1,14 @@
-import { StyleSheet, Text, View, FlatList, Pressable } from "react-native";
+import { StyleSheet, Text, View, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import CartItem from "../../components/CartItem/CartItem";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { usePostOrderMutation } from "../../services/shop-service";
+import { setOrders } from "../../store/slices/shop/ordersSlice";
 
 export const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
-
+  const dispatch = useDispatch();
   const { items } = useSelector((state) => state.cart);
 
   const [triggerPost, result] = usePostOrderMutation();
@@ -25,6 +26,9 @@ export const Cart = () => {
 
   const sendOrder = () => {
     triggerPost({ cartItems, total, user: "loggedUser" });
+    dispatch(
+      setOrders({ cartItems: cartItems, total: total, user: "loggedUser" })
+    );
   };
   return (
     <View>
@@ -33,12 +37,10 @@ export const Cart = () => {
           <FlatList
             data={cartItems}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <CartItem item={item} />}
+            renderItem={({ item }) => (
+              <CartItem item={item} total={total} sendOrder={sendOrder} />
+            )}
           />
-          <Text>Total: $ {total}</Text>
-          <Pressable onPress={sendOrder}>
-            <Text>Confirm order</Text>
-          </Pressable>
         </>
       ) : (
         <Text>Empty cart</Text>

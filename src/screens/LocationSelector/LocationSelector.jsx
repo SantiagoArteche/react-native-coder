@@ -16,7 +16,7 @@ export const LocationSelector = () => {
   const [triggerPostAddress, result] = usePostUserLocationMutation();
   const dispatch = useDispatch();
   const { localId } = useSelector((state) => state.auth);
-  console.log(localId);
+
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();

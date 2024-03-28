@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 const AddressesPreview = ({ navigation }) => {
   const { location } = useSelector((state) => state.auth);
-  console.log(location);
+
   return (
     <View style={styles.container}>
       <View>

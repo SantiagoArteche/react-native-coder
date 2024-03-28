@@ -11,8 +11,8 @@ import { setProductId } from "../../store/slices/shop/shopSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 export const ProductItem = ({ product, navigation }) => {
-  const [isPortrait, setIsPortrait] = useState(true);
-  const [isLandscape, setIsLandscape] = useState(false);
+  const [, setIsPortrait] = useState(true);
+  const [, setIsLandscape] = useState(false);
   const { width, height } = useWindowDimensions();
 
   const dispatch = useDispatch();

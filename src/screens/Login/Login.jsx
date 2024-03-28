@@ -5,6 +5,7 @@ import SubmitButton from "../SubmitButton/SubmitButton";
 import { useLoginMutation } from "../../services/auth-service";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/slices/auth/authSlice";
+import { insertSession } from "../../db";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("second");
@@ -17,11 +18,17 @@ const Login = ({ navigation }) => {
   useEffect(() => {
     if (result.data) {
       dispatch(setUser(result));
+      insertSession({
+        email: result.data.email,
+        localId: result.data.localId,
+        token: result.data.idToken,
+      })
+        .then((res) => res)
+        .catch((err) => console.log(err));
     }
   }, [result]);
   return (
-    <View>
-      <Text>Login</Text>
+    <View style={styles.container}>
       <InputForm label={"Email"} error={""} onChange={setEmail} />
       <InputForm label={"Password"} error={""} onChange={setPassword} />
       <SubmitButton title="Login" onPress={onSubmit} />
@@ -37,6 +44,12 @@ const Login = ({ navigation }) => {
 
 export default Login;
 const styles = StyleSheet.create({
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+    gap: 10,
+  },
   button: {
     backgroundColor: "red",
     width: 80,
